@@ -237,6 +237,27 @@ resource "azurerm_virtual_machine_extension" "dependency_agent" {
 }
 
 # =============================================================================
+# Section: Diagnostics Integration (Optional)
+# =============================================================================
+# Enable diagnostic settings for VM monitoring and compliance audit logging
+
+module "diagnostics" {
+  count   = var.enable_diagnostics ? 1 : 0
+  source  = "app.terraform.io/infoex/diagnostics/azurerm"
+  version = "0.0.1"
+
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  monitored_services = {
+    vm = {
+      id      = azurerm_linux_virtual_machine.this.id
+      table   = var.log_analytics_destination_type
+      include = [] # Enable all available diagnostic categories
+    }
+  }
+}
+
+# =============================================================================
 # Section: VM Extensions - Custom Script Extension (Optional)
 # =============================================================================
 
