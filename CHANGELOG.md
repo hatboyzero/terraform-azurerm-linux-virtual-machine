@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **COMPLIANCE**: Diagnostic settings integration via terraform-azurerm-diagnostics module (v0.0.11)
+  - Enables VM audit logging for PCI-DSS 10.2.2 and HIPAA §164.312(b) compliance
+  - Configurable via `enable_diagnostics` variable (default: true)
+  - Supports Dedicated or AzureDiagnostics table types
+  - Provides Linux system logs, syslog, and performance metrics for security audits
+
 ## [0.0.1] - 2025-01-28
 
 ### Added

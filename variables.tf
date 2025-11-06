@@ -341,6 +341,33 @@ variable "custom_script_command" {
 }
 
 # =============================================================================
+# Optional Variables - Diagnostics Configuration
+# =============================================================================
+
+variable "enable_diagnostics" {
+  description = "Enable diagnostic settings for the Virtual Machine"
+  type        = bool
+  default     = true
+}
+
+variable "log_analytics_workspace_id" {
+  description = "The resource ID of the Log Analytics workspace for diagnostics (required if enable_diagnostics = true)"
+  type        = string
+  default     = null
+}
+
+variable "log_analytics_destination_type" {
+  description = "The destination type for diagnostic settings (Dedicated or AzureDiagnostics)"
+  type        = string
+  default     = "Dedicated"
+
+  validation {
+    condition     = contains(["Dedicated", "AzureDiagnostics"], var.log_analytics_destination_type)
+    error_message = "log_analytics_destination_type must be either 'Dedicated' or 'AzureDiagnostics'"
+  }
+}
+
+# =============================================================================
 # Naming Variables (terraform-namer)
 # =============================================================================
 
