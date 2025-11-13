@@ -7,12 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **BREAKING**: Updated azurerm provider from ~> 3.0 to ~> 4.0
+  - Aligns with latest Azure provider features and improvements
+  - Tested and validated with azurerm 4.52.0+
+  - May require Terraform state refresh on upgrade
+- **BREAKING**: Module dependencies now use Terraform Registry references instead of relative paths
+  - `terraform-terraform-namer` → `app.terraform.io/infoex/namer/terraform` version `~> 0.1`
+  - `terraform-azurerm-diagnostics` → `app.terraform.io/infoex/diagnostics/azurerm` version `~> 0.1`
+  - Ensures proper version pinning and module registry best practices
+  - **NOTE**: Requires modules to be published to Terraform Cloud/Enterprise registry
+
 ### Added
-- **COMPLIANCE**: Diagnostic settings integration via terraform-azurerm-diagnostics module (v0.0.11)
+- **COMPLIANCE**: Diagnostic settings integration via terraform-azurerm-diagnostics module
   - Enables VM audit logging for PCI-DSS 10.2.2 and HIPAA §164.312(b) compliance
   - Configurable via `enable_diagnostics` variable (default: true)
   - Supports Dedicated or AzureDiagnostics table types
   - Provides Linux system logs, syslog, and performance metrics for security audits
+  - **Requires**: terraform-azurerm-diagnostics module with azurerm ~> 4.0 support
 
 ## [0.0.1] - 2025-01-28
 
